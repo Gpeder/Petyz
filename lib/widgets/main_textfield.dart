@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:petyz/theme/theme.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:petyz/themes/color_theme.dart';
 
 class MainForm extends StatelessWidget {
   final TextEditingController? controller;
@@ -322,7 +323,7 @@ class MainSearchBar extends StatelessWidget {
         ),
         prefixIcon: prefixIcon ??
             Icon(
-              Icons.search_rounded,
+              Ionicons.search,
               color: mutedColor,
             ),
         suffixIcon: suffixIcon,

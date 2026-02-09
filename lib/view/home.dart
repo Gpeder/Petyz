@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:petyz/theme/theme.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:petyz/components/home/hero.dart';
+import 'package:petyz/themes/color_theme.dart';
+import 'package:petyz/themes/text_theme.dart';
+import 'package:petyz/widgets/main_textfield.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,31 +13,63 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Petyz Home', style: Theme.of(context).textTheme.titleMedium),
-        actionsPadding: .only(right: 10),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(IconlyLight.buy),
-          ),
-        ],
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Petyz', style: AppTextStyles.text24Bold(context)),
+            const SizedBox(height: 5),
+            Text(
+              'Tudo para o seu pet 🐾',
+              style: AppTextStyles.text14(context),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
-          padding: .symmetric(horizontal: 10, vertical: 20),
-          child: Column(
-            children: [
-
-            ],
-          ),
-      )
+        padding: .symmetric(horizontal: 20, vertical: 25),
+        child: Column(
+          children: [
+            MainSearchBar(hint: 'Buscar produtos'),
+            const SizedBox(height: 20),
+            MainPromotionHero(
+              title: 'Promoções',
+              subtitle: 'Até 30% off em rações',
+              image: 'assets/hero.png',
+              textButon: 'Ver ofertas',
+              onPressed: () {},
+            ),
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                Text('Categorias', style: AppTextStyles.text20Bold(context)),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 100,
+                  child: Chip(
+                    label: Text(
+                      '🐾 Todos',
+                      style: AppTextStyles.text16(
+                        context,
+                      ).copyWith(color: AppColors.accent),
+                    ),
+                    backgroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: AppColors.accent, width: 0.5),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
 class MainProductCard extends StatelessWidget {
-  const MainProductCard({
-    super.key,
-  });
+  const MainProductCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +103,7 @@ class MainProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-    
+
               //? Descrição do produtodo
               Padding(
                 padding: const .symmetric(horizontal: 10, vertical: 10),
@@ -77,11 +113,10 @@ class MainProductCard extends StatelessWidget {
                     //? Marca do produto
                     Text(
                       'ROYAL CANIN',
-                      style: Theme.of(context).textTheme.bodySmall
-                          ?.copyWith(
-                            color: AppColors.mutedForeground,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.mutedForeground,
+                        fontWeight: FontWeight.bold,
+                      ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
@@ -97,11 +132,7 @@ class MainProductCard extends StatelessWidget {
                     //? Avaliação do produto
                     Row(
                       children: [
-                        Icon(
-                          IconlyBold.star,
-                          color: Colors.orange,
-                          size: 16,
-                        ),
+                        Icon(IconlyBold.star, color: Colors.orange, size: 16),
                         SizedBox(width: 4),
                         Text(
                           '4.5',
@@ -119,8 +150,9 @@ class MainProductCard extends StatelessWidget {
                     //? Preço do produto
                     Text(
                       'R\$ 150,00',
-                      style: Theme.of(context).textTheme.titleMedium
-                          ?.copyWith(color: AppColors.primary),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.primary,
+                      ),
                     ),
                   ],
                 ),
@@ -128,7 +160,7 @@ class MainProductCard extends StatelessWidget {
             ],
           ),
         ),
-    
+
         //? Chip e Ícone de favorito
         Positioned(
           top: 10,
@@ -153,10 +185,7 @@ class MainProductCard extends StatelessWidget {
                 ),
               ),
               //? Ícone de favorito
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(IconlyLight.heart),
-              ),
+              IconButton(onPressed: () {}, icon: const Icon(IconlyLight.heart)),
             ],
           ),
         ),

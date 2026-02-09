@@ -63,5 +63,7 @@ class AppColors {
       spreadRadius: -2,
     ),
   ];
+
+  static Color? get darkTextPrimary => null;
 }
 
