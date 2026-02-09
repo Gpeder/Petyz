@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:petyz/themes/color_theme.dart';
+import 'package:petyz/themes/text_theme.dart';
 
 class MainForm extends StatelessWidget {
   final TextEditingController? controller;
@@ -306,6 +307,9 @@ class MainSearchBar extends StatelessWidget {
             color: textColor,
           ),
       decoration: InputDecoration(
+        hintStyle: AppTextStyles.text16(context).copyWith(
+          color: mutedColor,
+        ),
         hintText: hint ?? 'Buscar...',
         fillColor: searchFillColor, 
         filled: true,

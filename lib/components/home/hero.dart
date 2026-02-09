@@ -35,16 +35,16 @@ class MainPromotionHero extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTextStyles.text18Bold(
+            style: AppTextStyles.text16Bold(
               context,
-            ).copyWith(color: AppColors.border),
+            ).copyWith(color: AppColors.accent),
           ),
           const SizedBox(height: 5),
           Text(
             subtitle,
-            style: AppTextStyles.text20(
+            style: AppTextStyles.text22Bold(
               context,
-            ).copyWith(color: AppColors.accent, fontWeight: FontWeight.bold),
+            ).copyWith(color: AppColors.accent),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -60,7 +60,7 @@ class MainPromotionHero extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               textButon,
-              style: AppTextStyles.text18Bold(
+              style: AppTextStyles.text16Bold(
                 context,
               ).copyWith(color: AppColors.accent),
             ),

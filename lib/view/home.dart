@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:petyz/components/home/category_filter.dart';
 import 'package:petyz/components/home/hero.dart';
+import 'package:petyz/models/products.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
 import 'package:petyz/widgets/main_textfield.dart';
@@ -20,17 +22,23 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               'Tudo para o seu pet 🐾',
-              style: AppTextStyles.text14(context),
+              style: AppTextStyles.text14(
+                context,
+              ).copyWith(color: AppColors.mutedForeground),
             ),
           ],
         ),
       ),
       body: SingleChildScrollView(
-        padding: .symmetric(horizontal: 20, vertical: 25),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
         child: Column(
           children: [
+            //? Barra de pesquisa
             MainSearchBar(hint: 'Buscar produtos'),
+
             const SizedBox(height: 20),
+
+            //? Hero
             MainPromotionHero(
               title: 'Promoções',
               subtitle: 'Até 30% off em rações',
@@ -39,28 +47,39 @@ class HomePage extends StatelessWidget {
               onPressed: () {},
             ),
             const SizedBox(height: 20),
-            Column(
-              children: [
-                Text('Categorias', style: AppTextStyles.text20Bold(context)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 100,
-                  child: Chip(
-                    label: Text(
-                      '🐾 Todos',
-                      style: AppTextStyles.text16(
-                        context,
-                      ).copyWith(color: AppColors.accent),
-                    ),
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(color: AppColors.accent, width: 0.5),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ],
+
+            CategoryFilter(),
+
+            const SizedBox(height: 20),
+
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                childAspectRatio: 0.56,
+              ),
+              itemCount: productsMock.length,
+              itemBuilder: (context, index) {
+                final product = productsMock[index];
+                return MainProductCard(
+                  id: product.id,
+                  name: product.name,
+                  category: product.category,
+                  brand: product.rating.toString(),
+                  price: product.price,
+                  image: product.image,
+                  rating: product.rating,
+                  reviews: product.reviews,
+                  description: product.description,
+                  onPressed: () {},
+                );
+              },
             ),
+
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -69,123 +88,160 @@ class HomePage extends StatelessWidget {
 }
 
 class MainProductCard extends StatelessWidget {
-  const MainProductCard({super.key});
+  final String id;
+  final String name;
+  final String category;
+  final String brand;
+  final double price;
+  final String image;
+  final double rating;
+  final int reviews;
+  final String description;
+  final VoidCallback onPressed;
+  const MainProductCard({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.brand,
+    required this.price,
+    required this.image,
+    required this.rating,
+    required this.reviews,
+    required this.description,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          width: 200,
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.border),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Column(
-            crossAxisAlignment: .start,
-            children: [
-              //? Imagem do produto
-              Container(
-                width: 300,
-                height: 200,
-                decoration: BoxDecoration(
-                  boxShadow: AppColors.shadowSoft,
-                  color: AppColors.card,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+          child: GestureDetector(
+            onTap: onPressed,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //? Imagem do produto
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: AppColors.shadowSoft,
+                      color: AppColors.card,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage(image),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
 
-              //? Descrição do produtodo
-              Padding(
-                padding: const .symmetric(horizontal: 10, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    //? Marca do produto
-                    Text(
-                      'ROYAL CANIN',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.mutedForeground,
-                        fontWeight: FontWeight.bold,
+                //? Descrição do produto
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      //? Marca do produto
+                      Text(
+                        brand,
+                        style: AppTextStyles.text14Bold(
+                          context,
+                        ).copyWith(color: AppColors.mutedForeground),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    SizedBox(height: 5),
-                    //? Nome do produto
-                    Text(
-                      'Ração Premium Gold',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    SizedBox(height: 5),
-                    //? Avaliação do produto
-                    Row(
-                      children: [
-                        Icon(IconlyBold.star, color: Colors.orange, size: 16),
-                        SizedBox(width: 4),
-                        Text(
-                          '4.5',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          '(200)',
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: AppColors.mutedForeground),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    //? Preço do produto
-                    Text(
-                      'R\$ 150,00',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.primary,
+                      const SizedBox(height: 5),
+                      //? Nome do produto
+                      Text(
+                        name,
+                        style: AppTextStyles.text16Bold(context),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 6),
+                      //? Avaliação do produto
+                      Row(
+                        children: [
+                          const Icon(
+                            IconlyBold.star,
+                            color: Colors.orange,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            rating.toString(),
+                            style: AppTextStyles.text14(
+                              context,
+                            ).copyWith(color: AppColors.mutedForeground),
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            '($reviews)',
+                            style: AppTextStyles.text14(
+                              context,
+                            ).copyWith(color: AppColors.mutedForeground),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      //? Preço do produto
+                      Text(
+                        price.toString(),
+                        style: AppTextStyles.text18Bold(
+                          context,
+                        ).copyWith(color: AppColors.primary),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
 
         //? Chip e Ícone de favorito
         Positioned(
           top: 10,
-          left: 5,
-          right: 0,
+          left: 8,
+          right: 8,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              //? Chip de novo/promo
               Chip(
                 label: Text(
                   '25% OFF',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyles.text14Bold(
+                    context,
+                  ).copyWith(color: Colors.white),
                 ),
                 backgroundColor: AppColors.primary,
-                padding: .symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 shape: RoundedRectangleBorder(
+                  side: const BorderSide(color: AppColors.primary),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              //? Ícone de favorito
-              IconButton(onPressed: () {}, icon: const Icon(IconlyLight.heart)),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Ionicons.heart_outline,
+                  color: AppColors.mutedForeground,
+                ),
+              ),
             ],
           ),
         ),
