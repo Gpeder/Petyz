@@ -64,6 +64,18 @@ flutter:
   assets:
     - assets/logo.png
     - assets/hero.png
+    - assets/racao.png
+    - assets/arranhador torre.png
+    - assets/coleira-puxao.png
+    - assets/cama ortopedica.png
+    - assets/comedouro.png
+    - assets/areia gato.png
+    - assets/mordedor.png
+    - assets/shampoo.png
+    - assets/caixa transporte.png
+    - assets/petisco desidratado.png
+    - assets/tapete higienico.png
+    - assets/guia.png
     
   #   - images/a_dot_ham.jpeg
 

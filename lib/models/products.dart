@@ -26,7 +26,7 @@ final productsMock = <ProductModel>[
     name: 'Ração Premium para Cães Adultos',
     price: 189.90,
     category: 'Cães',
-    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee',
+    image: 'assets/racao.png',
     rating: 4.8,
     reviews: 124,
     description:
@@ -37,7 +37,7 @@ final productsMock = <ProductModel>[
     name: 'Arranhador de Gato com Torre',
     price: 249.90,
     category: 'Gatos',
-    image: 'https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8',
+    image: 'assets/arranhador torre.png',
     rating: 4.6,
     reviews: 89,
     description:
@@ -48,7 +48,7 @@ final productsMock = <ProductModel>[
     name: 'Coleira Ajustável Anti-Puxão',
     price: 79.90,
     category: 'Acessórios',
-    image: 'https://images.unsplash.com/photo-1601758173925-1967c9a6b68c',
+    image: 'assets/coleira-puxao.png',
     rating: 4.7,
     reviews: 56,
     description:
@@ -59,7 +59,7 @@ final productsMock = <ProductModel>[
     name: 'Cama Ortopédica para Pets Médios',
     price: 219.90,
     category: 'Cães',
-    image: 'https://images.unsplash.com/photo-1596495577886-d920f1fb7238',
+    image: 'assets/cama ortopedica.png',
     rating: 4.9,
     reviews: 211,
     description:
@@ -70,7 +70,7 @@ final productsMock = <ProductModel>[
     name: 'Comedouro Inox Antiderrapante',
     price: 59.90,
     category: 'Acessórios',
-    image: 'https://images.unsplash.com/photo-1619983081563-430f636027a4',
+    image: 'assets/comedouro.png',
     rating: 4.5,
     reviews: 74,
     description:
@@ -81,7 +81,7 @@ final productsMock = <ProductModel>[
     name: 'Areia Higiênica Premium para Gatos',
     price: 69.90,
     category: 'Gatos',
-    image: 'https://images.unsplash.com/photo-1625772452859-1c03c2a9d9b1',
+    image: 'assets/areia gato.png',
     rating: 4.7,
     reviews: 132,
     description: 'Areia higiênica com controle de odores e rápida absorção.',
@@ -91,7 +91,7 @@ final productsMock = <ProductModel>[
     name: 'Brinquedo Mordedor Resistente',
     price: 49.90,
     category: 'Brinquedos',
-    image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e',
+    image: 'assets/mordedor.png',
     rating: 4.6,
     reviews: 98,
     description:
@@ -102,7 +102,7 @@ final productsMock = <ProductModel>[
     name: 'Shampoo Neutro para Pets Sensíveis',
     price: 39.90,
     category: 'Higiene',
-    image: 'https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993',
+    image: 'assets/shampoo.png',
     rating: 4.4,
     reviews: 61,
     description:
@@ -113,7 +113,7 @@ final productsMock = <ProductModel>[
     name: 'Caixa de Transporte para Pets Pequenos',
     price: 199.90,
     category: 'Acessórios',
-    image: 'https://images.unsplash.com/photo-1601758064134-1c65f07f4b29',
+    image: 'assets/caixa transporte.png',
     rating: 4.7,
     reviews: 84,
     description:
@@ -124,7 +124,7 @@ final productsMock = <ProductModel>[
     name: 'Petiscos Naturais de Frango Desidratado',
     price: 34.90,
     category: 'Petiscos',
-    image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f4b',
+    image: 'assets/petisco desidratado.png',
     rating: 4.9,
     reviews: 143,
     description:
@@ -135,7 +135,7 @@ final productsMock = <ProductModel>[
     name: 'Tapete Higiênico Ultra Absorvente',
     price: 89.90,
     category: 'Higiene',
-    image: 'https://images.unsplash.com/photo-1619983081394-6a4e20d7d28a',
+    image: 'assets/tapete higienico.png',
     rating: 4.6,
     reviews: 97,
     description: 'Tapetes com gel super absorvente e controle de odores.',
@@ -145,7 +145,7 @@ final productsMock = <ProductModel>[
     name: 'Guia Retrátil para Passeios',
     price: 99.90,
     category: 'Acessórios',
-    image: 'https://images.unsplash.com/photo-1601758174125-06d5b42e0b2b',
+    image: 'assets/guia.png',
     rating: 4.5,
     reviews: 65,
     description: 'Guia retrátil com trava segura e empunhadura ergonômica.',

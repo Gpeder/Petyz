@@ -138,7 +138,7 @@ class MainProductCard extends StatelessWidget {
                         topRight: Radius.circular(20),
                       ),
                       image: DecorationImage(
-                        image: NetworkImage(image),
+                        image: AssetImage(image),
                         fit: BoxFit.cover,
                       ),
                     ),
