@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:petyz/components/home/category_filter.dart';
+import 'package:petyz/components/home/grid_products.dart';
 import 'package:petyz/components/home/hero.dart';
-import 'package:petyz/models/products.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
-import 'package:petyz/widgets/main_productcard.dart';
 import 'package:petyz/widgets/main_textfield.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,9 +39,9 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 5),
                       Text(
                         'Tudo para o seu pet 🐾',
-                        style: AppTextStyles.text14(context).copyWith(
-                          color: AppColors.mutedForeground,
-                        ),
+                        style: AppTextStyles.text14(
+                          context,
+                        ).copyWith(color: AppColors.mutedForeground),
                       ),
                     ],
                   ),
@@ -68,6 +67,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {},
             ),
             const SizedBox(height: 20),
+
+            //? Filtros
             CategoryFilter(
               selectedCategories: selectedCategories,
               onChanged: (value) {
@@ -77,35 +78,9 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             const SizedBox(height: 20),
+
             //? Produtos
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-                childAspectRatio: 0.56,
-              ),
-              itemCount: productsMock.length,
-              itemBuilder: (context, index) {
-                final product = productsMock[index];
-                return MainProductCard(
-                  id: product.id,
-                  name: product.name,
-                  category: product.category,
-                  brand: product.brand,
-                  price: product.price,
-                  image: product.image,
-                  rating: product.rating,
-                  reviews: product.reviews,
-                  description: product.description,
-                  onPressed: () {},
-                  isFavorite: product.isFavorite,
-                  badge: product.badge,
-                );
-              },
-            ),
+            GridHomeProducts(),
           ],
         ),
       ),

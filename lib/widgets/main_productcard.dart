@@ -155,7 +155,9 @@ class MainProductCard extends StatelessWidget {
                     )
                   : const SizedBox(width: 1),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 icon: Icon(
                   (isFavorite ?? false)
                       ? Ionicons.heart
@@ -189,7 +191,7 @@ class ProductBadgeWidget extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: Color(0XFF5AADD2),
           borderRadius: BorderRadius.circular(999),
         ),
         child: Row(
@@ -215,8 +217,9 @@ class ProductBadgeWidget extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               'TOP',
-              style: AppTextStyles.text14Bold(context)
-                  .copyWith(color: Colors.white),
+              style: AppTextStyles.text14Bold(
+                context,
+              ).copyWith(color: Colors.white),
             ),
           ],
         ),
@@ -239,7 +242,7 @@ class ProductBadgeWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: AppColors.primary,
+        color: Color(0XFF5AADD2),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
