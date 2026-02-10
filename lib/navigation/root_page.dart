@@ -6,7 +6,7 @@ import 'package:petyz/features/cart/cart.dart';
 import 'package:petyz/features/categories/categories.dart';
 import 'package:petyz/features/favorite/favorite.dart';
 import 'package:petyz/features/home/home.dart';
-import 'package:petyz/features/profile.dart';
+import 'package:petyz/features/profile/profile.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
