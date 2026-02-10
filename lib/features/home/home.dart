@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:petyz/components/home/category_filter.dart';
-import 'package:petyz/components/home/grid_products.dart';
-import 'package:petyz/components/home/hero.dart';
+import 'package:petyz/features/home/components/category_filter.dart';
+import 'package:petyz/features/home/components/grid_products.dart';
+import 'package:petyz/features/home/components/hero.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
 import 'package:petyz/widgets/main_textfield.dart';

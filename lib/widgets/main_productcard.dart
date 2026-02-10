@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
+import 'package:petyz/helper/format.dart';
 import 'package:petyz/models/products.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
@@ -125,7 +126,8 @@ class MainProductCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       //? Preço do produto
                       Text(
-                        price.toString(),
+                        MoneyHelper.format(price),
+                        textAlign: TextAlign.start,
                         style: AppTextStyles.text18Bold(
                           context,
                         ).copyWith(color: AppColors.primary),

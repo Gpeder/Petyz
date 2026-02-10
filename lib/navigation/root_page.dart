@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
-import 'package:petyz/view/cart.dart';
-import 'package:petyz/view/categories.dart';
-import 'package:petyz/view/favorite.dart';
-import 'package:petyz/view/home.dart';
-import 'package:petyz/view/profile.dart';
+import 'package:petyz/features/cart/cart.dart';
+import 'package:petyz/features/categories.dart';
+import 'package:petyz/features/favorite.dart';
+import 'package:petyz/features/home/home.dart';
+import 'package:petyz/features/profile.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
