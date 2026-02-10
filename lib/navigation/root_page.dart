@@ -3,8 +3,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
 import 'package:petyz/features/cart/cart.dart';
-import 'package:petyz/features/categories.dart';
-import 'package:petyz/features/favorite.dart';
+import 'package:petyz/features/categories/categories.dart';
+import 'package:petyz/features/favorite/favorite.dart';
 import 'package:petyz/features/home/home.dart';
 import 'package:petyz/features/profile.dart';
 
