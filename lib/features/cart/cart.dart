@@ -1,12 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:petyz/helper/format.dart';
+import 'package:petyz/features/cart/components/cart_itemtile.dart';
+import 'package:petyz/features/cart/components/sumary.dart';
+import 'package:petyz/models/cart.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
 import 'package:petyz/widgets/main_button.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  double _total = 0;
+  double _shipping = 100;
+
+  double get subtotal => _total;
+  double get shipping => _shipping;
+  double get total => _total + _shipping;
+
+  void _calculateTotal() {
+    double total = 0;
+    for (var item in cartMock) {
+      total += item.product.price * item.quantity;
+    }
+    setState(() {
+      _total = total;
+    });
+  }
+
+
+  void _calculateShipping() {
+    double shipping = 0;
+    for (var item in cartMock) {
+      shipping += item.product.price * item.quantity;
+    }
+    setState(() {
+      _shipping = shipping;
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _calculateTotal();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,122 +61,34 @@ class CartPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/areia gato.png'),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Areia Higiênica',
-                        style: AppTextStyles.text16(context),
-                        maxLines: 1,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        MoneyHelper.format(120),
-                        textAlign: TextAlign.start,
-                        style: AppTextStyles.text18Bold(
-                          context,
-                        ).copyWith(color: AppColors.primary),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          ActionButton(icon: Ionicons.remove, onTap: () {}),
-                          const SizedBox(width: 10),
-                          Text(
-                            '1',
-                            style: AppTextStyles.text16(context),
-                          ),
-                          const SizedBox(width: 10),
-                          ActionButton(icon: Ionicons.add, onTap: () {}),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              //? Itens do carrinho
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) => const Divider(
+                  thickness: 0.8,
+                  height: 32,
+                  color: AppColors.border,
+                ),
+                itemBuilder: (context, index) => CartItemTile(
+                  image: cartMock[index].product.image,
+                  name: cartMock[index].product.name,
+                  price: cartMock[index].product.price,
+                  quantity: cartMock[index].quantity,
+                ),
+                itemCount: cartMock.length,
               ),
+              const SizedBox(height: 20),
+
+              //? Resumo do carrinho
+              CartSummary(subtotal: _total, shipping: 100, total: total),
+              const SizedBox(height: 20),
+
+              //? Botão de finalizar pedido
+              PrimaryButton(label: 'Finalizar Pedido', onPressed: () {}),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ActionButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onTap;
-  const ActionButton({super.key, required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(2),
-        decoration: BoxDecoration(
-          color: AppColors.primary.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Icon(icon, color: AppColors.primary),
-      ),
-    );
-  }
-}
-
-class EmptyCart extends StatelessWidget {
-  const EmptyCart({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 150),
-          CircleAvatar(
-            radius: 40,
-            backgroundColor: AppColors.muted,
-            child: Icon(
-              Ionicons.bag_handle,
-              size: 40,
-              color: AppColors.mutedForeground,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'Seu carrinho está vazio',
-            style: AppTextStyles.text20Bold(context),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Adicione produtos para começar',
-            style: AppTextStyles.text16(
-              context,
-            ).copyWith(color: AppColors.mutedForeground),
-          ),
-          const SizedBox(height: 20),
-          PrimaryButton(
-            fullWidth: false,
-            label: 'Explorar produtos',
-            onPressed: () {},
-          ),
-        ],
       ),
     );
   }
