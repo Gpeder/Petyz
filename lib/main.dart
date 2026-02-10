@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petyz/themes/light/theme.dart';
 import 'package:petyz/themes/dark/theme.dart';
+import 'package:petyz/themes/light/theme.dart';
 import 'package:petyz/view/home.dart';
 
 void main() {

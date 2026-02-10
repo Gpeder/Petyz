@@ -40,11 +40,14 @@ class MainPromotionHero extends StatelessWidget {
             ).copyWith(color: AppColors.accent),
           ),
           const SizedBox(height: 5),
-          Text(
-            subtitle,
-            style: AppTextStyles.text22Bold(
-              context,
-            ).copyWith(color: AppColors.accent),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.45,
+            child: Text(
+              subtitle,
+              style: AppTextStyles.text22Bold(
+                context,
+              ).copyWith(color: AppColors.accent),
+            ),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
