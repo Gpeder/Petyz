@@ -11,12 +11,16 @@ class CartItemTile extends StatelessWidget {
   final String name;
   final double price;
   final int quantity;
+  final Function() onAddCart;
+  final Function() onRemoveCart;
   const CartItemTile({
     super.key,
     required this.image,
     required this.name,
     required this.price,
     required this.quantity,
+    required this.onAddCart,
+    required this.onRemoveCart,
   });
 
   @override
@@ -56,11 +60,11 @@ class CartItemTile extends StatelessWidget {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  CartQuantityButton(icon: Ionicons.remove, onTap: () {}),
+                  CartQuantityButton(icon: Ionicons.remove, onTap: onRemoveCart),
                   const SizedBox(width: 12),
                   Text(quantity.toString(), style: AppTextStyles.text16(context)),
                   const SizedBox(width: 12),
-                  CartQuantityButton(icon: Ionicons.add, onTap: () {}),
+                  CartQuantityButton(icon: Ionicons.add, onTap: onAddCart),
                   const Spacer(),
                   CartDeleteIconButton(onTap: () {}),
                 ],

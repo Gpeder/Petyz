@@ -44,7 +44,7 @@ class CartSummary extends StatelessWidget {
               Text(
                 shipping == 0 ? 'Grátis' : MoneyHelper.format(shipping),
                 style: AppTextStyles.text16(context).copyWith(
-                  color: shipping == 0 ? AppColors.primary : null,
+                  color: shipping == 0 ? AppColors.darkPrimary : null,
                   fontWeight: shipping == 0 ? FontWeight.bold : null,
                 ),
               ),

@@ -14,8 +14,9 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  late List<CartItemModel> _cartItems;
   double _total = 0;
-  double _shipping = 100;
+  double _shipping = 0;
 
   double get subtotal => _total;
   double get shipping => _shipping;
@@ -23,7 +24,7 @@ class _CartPageState extends State<CartPage> {
 
   void _calculateTotal() {
     double total = 0;
-    for (var item in cartMock) {
+    for (var item in _cartItems) {
       total += item.product.price * item.quantity;
     }
     setState(() {
@@ -31,21 +32,30 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
-
-  void _calculateShipping() {
-    double shipping = 0;
-    for (var item in cartMock) {
-      shipping += item.product.price * item.quantity;
-    }
+  void onAddCart(int index) {
     setState(() {
-      _shipping = shipping;
+      _cartItems[index] = _cartItems[index].copyWith(
+        quantity: _cartItems[index].quantity + 1,
+      );
     });
+    _calculateTotal();
   }
 
+  void onRemoveCart(int index) {
+    if (_cartItems[index].quantity > 1) {
+      setState(() {
+        _cartItems[index] = _cartItems[index].copyWith(
+          quantity: _cartItems[index].quantity - 1,
+        );
+      });
+      _calculateTotal();
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _cartItems = List.from(cartMock);
     _calculateTotal();
   }
 
@@ -71,17 +81,19 @@ class _CartPageState extends State<CartPage> {
                   color: AppColors.border,
                 ),
                 itemBuilder: (context, index) => CartItemTile(
-                  image: cartMock[index].product.image,
-                  name: cartMock[index].product.name,
-                  price: cartMock[index].product.price,
-                  quantity: cartMock[index].quantity,
+                  image: _cartItems[index].product.image,
+                  name: _cartItems[index].product.name,
+                  price: _cartItems[index].product.price,
+                  quantity: _cartItems[index].quantity,
+                  onAddCart: () => onAddCart(index),
+                  onRemoveCart: () => onRemoveCart(index),
                 ),
-                itemCount: cartMock.length,
+                itemCount: _cartItems.length,
               ),
               const SizedBox(height: 20),
 
               //? Resumo do carrinho
-              CartSummary(subtotal: _total, shipping: 100, total: total),
+              CartSummary(subtotal: _total, shipping: _shipping, total: total),
               const SizedBox(height: 20),
 
               //? Botão de finalizar pedido
