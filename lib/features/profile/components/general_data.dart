@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:petyz/themes/color_theme.dart';
 import 'package:petyz/themes/text_theme.dart';
 import 'package:petyz/widgets/main_card.dart';
+import 'package:petyz/widgets/main_animated_listtile.dart';
 
 class GeneralData extends StatelessWidget {
   const GeneralData({
@@ -11,7 +12,6 @@ class GeneralData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final settings = [
       {'title': 'Meus Pedidos', 'icon': Ionicons.cube_outline, 'onTap': () {}},
       {'title': 'Endereços', 'icon': Ionicons.location_outline, 'onTap': () {}},
@@ -27,17 +27,16 @@ class GeneralData extends StatelessWidget {
       },
     ];
     return MainCard(
-      padding: .symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       widget: Column(
         children: List.generate(settings.length, (index) {
           final item = settings[index];
           final bool isLast = index == settings.length - 1;
-    
+
           return Column(
             children: [
-              ListTile(
+              MainAnimatedListTile(
                 onTap: item['onTap'] as VoidCallback,
-                contentPadding: EdgeInsets.zero,
                 horizontalTitleGap: 12,
                 leading: Icon(
                   item['icon'] as IconData,
@@ -54,8 +53,7 @@ class GeneralData extends StatelessWidget {
                   color: AppColors.mutedForeground,
                 ),
               ),
-              if (!isLast)
-                const Divider(color: AppColors.border, height: 1),
+              if (!isLast) const Divider(color: AppColors.border, height: 1),
             ],
           );
         }),

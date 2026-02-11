@@ -139,7 +139,6 @@ class MainProductCard extends StatelessWidget {
             ),
           ),
         ),
-
         //? Chip e Ícone de favorito
         Positioned(
           top: 10,
@@ -156,23 +155,101 @@ class MainProductCard extends StatelessWidget {
                           : null,
                     )
                   : const SizedBox(width: 1),
-              IconButton(
-                onPressed: () {
-                  
-                },
-                icon: Icon(
-                  (isFavorite ?? false)
-                      ? Ionicons.heart
-                      : Ionicons.heart_outline,
-                  color: (isFavorite ?? false)
-                      ? AppColors.destructive
-                      : AppColors.mutedForeground,
-                ),
-              ),
+              FavButton(isFavorite: isFavorite),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class FavButton extends StatefulWidget {
+  const FavButton({
+    super.key,
+    required this.isFavorite,
+    this.onToggle,
+  });
+
+  final bool? isFavorite;
+  final ValueChanged<bool>? onToggle;
+
+  @override
+  State<FavButton> createState() => _FavButtonState();
+}
+
+class _FavButtonState extends State<FavButton>
+    with SingleTickerProviderStateMixin {
+  late bool _isFavorite;
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _isFavorite = widget.isFavorite ?? false;
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    _scaleAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.0, end: 1.3)
+            .chain(CurveTween(curve: Curves.easeOut)),
+        weight: 50,
+      ),
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.3, end: 1.0)
+            .chain(CurveTween(curve: Curves.easeIn)),
+        weight: 50,
+      ),
+    ]).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _handleTap() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+
+    if (_isFavorite) {
+      _controller.forward(from: 0.0);
+    }
+
+    if (widget.onToggle != null) {
+      widget.onToggle!(_isFavorite);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(const EdgeInsets.all(2)),
+        backgroundColor: WidgetStateProperty.all(
+          AppColors.muted.withValues(alpha: 0.4),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        iconColor: WidgetStateProperty.all(AppColors.primary),
+      ),
+      onPressed: _handleTap,
+      icon: ScaleTransition(
+        scale: _scaleAnimation,
+        child: Icon(
+          _isFavorite ? Ionicons.heart : Ionicons.heart_outline,
+          color: _isFavorite ? AppColors.destructive : AppColors.mutedForeground,
+        ),
+      ),
     );
   }
 }
